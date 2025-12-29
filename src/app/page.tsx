@@ -24,7 +24,7 @@ export default async function Home() {
   };
   return (
     <>
-      <header className="flex-grow basis-1/5 flex items-start justify-end space-x-4">
+      <header className="grow basis-1/5 flex items-start justify-end space-x-4">
         <Button variant="ghost" size="icon" aria-labelledby="ghlink">
           <a href="https://github.com/aqemi/username-generator" target="_blank" aria-label="Github" id="ghlink">
             <Github />
@@ -32,21 +32,21 @@ export default async function Home() {
         </Button>
         <ThemeSwitch />
       </header>
-      <main className="flex-grow basis-3/5 flex flex-col items-center">
-        <section className="flex-grow basis-0 content-end">
+      <main className="grow basis-3/5 flex flex-col items-center">
+        <section className="grow basis-0 content-end">
           <div className="flex items-center gap-4 p-4 min-[480px]:p-6 md:p-8">
-            <Image src={logo} height={50} alt="chibi" className="min-height-0"></Image>
             <h1
-              className={`${font.className} scroll-m-20 font-extrabold tracking-tight text-center text-4xl min-[480px]:text-5xl sm:text-6xl md:text-7xl whitespace-nowrap uppercase`}
+              className={`${font.className} scroll-m-20 font-extrabold tracking-tight text-center text-4xl min-[480px]:text-5xl sm:text-6xl md:text-7xl whitespace-nowrap uppercase flex items-center`}
             >
+              <Image src={logo} alt="chibi" className="inline-block h-[1.25em] w-auto mr-4" />
               usernames generator
             </h1>
           </div>
         </section>
-        <GeneratorPanel {...generatedValues} className="w-full md:w-[700px]" />
-        <section className="flex-grow basis-0"></section>
+        <GeneratorPanel {...generatedValues} className="w-full md:w-175" />
+        <section className="grow basis-0"></section>
       </main>
-      <footer className="flex-grow basis-1/5"></footer>
+      <footer className="grow basis-1/5"></footer>
     </>
   );
 }

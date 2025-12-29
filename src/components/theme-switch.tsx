@@ -24,7 +24,7 @@ export const ThemeSwitch = () => {
         <Fragment>
           <Sun
             className={clsx(
-              'clh-[1.2rem] w-[1.2rem] transition-all dark:rotate-0 dark:scale-100',
+              'h-[1.2rem] w-[1.2rem] transition-all dark:rotate-0 dark:scale-100',
               resolvedTheme === 'dark' ? 'rotate-0 scale-100' : 'rotate90 scale-0'
             )}
           />

@@ -68,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={clsx('min-h-screen h-screen flex flex-col p-4 select-none', font.className)}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem enableColorScheme>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem enableColorScheme disableTransitionOnChange>
           {children}
           <Toaster richColors visibleToasts={1} />
         </ThemeProvider>
