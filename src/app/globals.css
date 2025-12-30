@@ -72,6 +72,10 @@
   --color-shadow-color: var(--shadow-color);
 }
 
+@theme {
+  --breakpoint-xs: 480px;
+}
+
 :root {
   --radius: 0.5rem;
   --background: oklch(0.9816 0.0017 247.839);
