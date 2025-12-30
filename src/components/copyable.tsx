@@ -1,33 +1,30 @@
 import * as React from 'react';
-import { useId, type MouseEventHandler } from 'react';
 import { ClipboardCopy } from 'lucide-react';
+import { type MouseEventHandler } from 'react';
 
-import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { SingleTooltipContext } from './single-tooltip-provider';
+import { cn } from '@/lib/utils';
+import { useTooltip } from '@/hooks/useTooltip';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Copyable = React.forwardRef<HTMLInputElement, InputProps>(({ className, type, value, ...props }, ref) => {
-  const id = useId();
-  const { openTooltipId, setOpenTooltipId } = React.useContext(SingleTooltipContext);
+  const { isVisible, displayTooltip } = useTooltip();
 
-  const isTooltipVisible = id === openTooltipId;
-
-  const copy: MouseEventHandler = event => {
+  const copy: MouseEventHandler = (event) => {
     navigator.clipboard.writeText(value as string);
-    setOpenTooltipId(id);
+    displayTooltip();
   };
 
   return (
-    <Tooltip open={isTooltipVisible}>
+    <Tooltip open={isVisible}>
       <TooltipTrigger asChild>
         <div
           className={cn(
             'flex items-center h-10 px-3 space-x-1 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground text-sm cursor-pointer selection:bg-amber-900 min-w-0',
             className
           )}
-          aria-describedby=''
+          aria-describedby=""
           onClick={copy}
           aria-label="Copy"
           {...props}
