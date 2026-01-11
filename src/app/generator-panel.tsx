@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
+import React, { useCallback, useState } from 'react';
 import { Copyable } from '@/components/copyable';
 import { Generator } from '@/components/generator';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,55 +27,66 @@ export interface GeneratorPanelProps {
   className?: string;
 }
 
-export function GeneratorPanel(props: GeneratorPanelProps) {
-  const [state, setState] = useState(props);
-  const updateState = (newState: Partial<GeneratorPanelProps>) => setState({ ...state, ...newState });
+export const GeneratorPanel = React.memo(function GeneratorPanel(props: GeneratorPanelProps) {
+  const [state, setState] = useState<GeneratorPanelProps>(() => props);
 
-  const regenerateRequest = async <R = unknown,>(generator: string): Promise<R | null> => {
+  const updateState = useCallback((newState: Partial<GeneratorPanelProps>) => {
+    setState((prev) => ({ ...prev, ...newState }));
+  }, []);
+
+  const regenerateRequest = useCallback(async <R = unknown,>(generator: string): Promise<R | null> => {
     try {
       const response = await fetch(`/api/generate/${generator}`);
       return await response.json();
     } catch (error) {
+      console.error('Regeneration error:', error);
       toast.error('Uh oh! Something went wrong.', {
         description: 'There was a problem with your request.',
         dismissible: true,
       });
       return null;
     }
-  };
+  }, []);
 
-  const regenerateAnime = async () => {
+  const regenerateAnime = useCallback(async () => {
     const result = await regenerateRequest<AnimeGeneratorResult>('anime');
-    result && updateState({ anime: result });
-  };
+    if (result) updateState({ anime: result });
+  }, [regenerateRequest, updateState]);
 
-  const regenerateBible = async () => {
+  const regenerateBible = useCallback(async () => {
     const result = await regenerateRequest<BibleGeneratorResult>('bible');
-    result && updateState({ bible: result });
-  };
+    if (result) updateState({ bible: result });
+  }, [regenerateRequest, updateState]);
 
-  const regenerateElastic = async () => {
+  const regenerateElastic = useCallback(async () => {
     const result = await regenerateRequest<ElasticGeneratorResult>('elastic');
-    result && updateState({ elastic: result });
-  };
+    if (result) updateState({ elastic: result });
+  }, [regenerateRequest, updateState]);
 
-  const regenerateAi = async () => {
+  const regenerateAi = useCallback(async () => {
     const result = await regenerateRequest<GachaGeneratorResult>('gacha');
-    result && updateState({ gacha: result });
-  };
+    if (result) updateState({ gacha: result });
+  }, [regenerateRequest, updateState]);
 
-  const regenerateUuid = async () => {
+  const regenerateUuid = useCallback(async () => {
     const result = await new UuidGenerator().generate();
     updateState({ uuid: result });
-  };
+  }, [updateState]);
 
-  const regenerateWiki = async () => {
+  const regenerateWiki = useCallback(async () => {
     const result = await regenerateRequest<WikiGeneratorResult>('genshin');
-    result && updateState({ wiki: result });
-  };
+    if (result) updateState({ wiki: result });
+  }, [regenerateRequest, updateState]);
+
+  // Layered glow: teal inner + pink mid/outer
+  const glowShadow = [
+    '0 0 15px oklch(from var(--accent) l c h / 0.65)',
+    '0 0 40px oklch(from var(--primary) l c h / 0.3)',
+    '0 0 80px oklch(from var(--primary) l c h / 0.15)',
+  ].join(', ');
 
   return (
-    <Card className={cn(props.className)}>
+    <Card className={cn(props.className, 'border-accent/30')} style={{ boxShadow: glowShadow }}>
       <CardContent className="p-4 space-y-4">
         <SingleTooltipProvider>
           <TooltipProvider>
@@ -85,24 +95,24 @@ export function GeneratorPanel(props: GeneratorPanelProps) {
               <Copyable disabled type="text" value={state.anime.lastName} />
               <Copyable disabled type="text" value={state.anime.fullName} />
             </Generator>
-            <Separator></Separator>
+            <Separator />
             <Generator title="Bible" onRegenerate={regenerateBible}>
               <Copyable disabled type="text" value={state.bible.name} />
             </Generator>
-            <Separator></Separator>
+            <Separator />
             <Generator title="Neutral" onRegenerate={regenerateElastic}>
               <Copyable disabled type="text" value={state.elastic.name} />
             </Generator>
-            <Separator></Separator>
+            <Separator />
             <Generator title="AI" onRegenerate={regenerateAi}>
               {state.gacha.items.length &&
-                state.gacha.items.map((item, index) => <Copyable key={index} disabled type="text" value={item} />)}
+                state.gacha.items.map((item) => <Copyable key={item} disabled type="text" value={item} />)}
             </Generator>
-            <Separator></Separator>
+            <Separator />
             <Generator title="Genshin" onRegenerate={regenerateWiki}>
               <Copyable disabled type="text" value={state.wiki.title} />
             </Generator>
-            <Separator></Separator>
+            <Separator />
             <Generator title="UUID" onRegenerate={regenerateUuid}>
               <Copyable disabled type="text" value={state.uuid.v4} />
               <Copyable disabled type="text" value={state.uuid.short} />
@@ -112,4 +122,4 @@ export function GeneratorPanel(props: GeneratorPanelProps) {
       </CardContent>
     </Card>
   );
-}
+});

@@ -22,7 +22,7 @@ export function Generator({ title, children, onRegenerate }: GeneratorProps) {
     } finally {
       setGenerating(false);
     }
-  }, []);
+  }, [onRegenerate]);
   return (
     <section className="flex items-center gap-4 group flex-wrap md:flex-nowrap">
       <h3 className={`${font.className} scroll-m-20 text-4xl tracking-tight min-w-[calc(100%-3.5rem)] md:min-w-24`}>
