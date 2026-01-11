@@ -29,7 +29,7 @@ export default async function Home() {
     <>
       <header className="grow basis-1/5 flex items-start justify-end space-x-4">
         <Button variant="ghost" size="icon" aria-labelledby="ghlink">
-          <a href="https://github.com/aqemi/username-generator" target="_blank" aria-label="Github" id="ghlink">
+          <a href="https://github.com/aqemi/usernames-generator" target="_blank" aria-label="Github" id="ghlink">
             <Github />
           </a>
         </Button>
