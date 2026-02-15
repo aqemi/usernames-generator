@@ -9,7 +9,6 @@ import { ElasticGenerator } from '@/generators/elastic/elastic.generator';
 import { UuidGenerator } from '@/generators/uuid/uuid.generator';
 import { VT323 } from 'next/font/google';
 import Image from 'next/image';
-import { WikiGenerator } from '../generators/wiki/wiki.generator';
 import { GeneratorPanel, GeneratorPanelProps } from './generator-panel';
 
 import logo from './logo.png';
@@ -23,7 +22,6 @@ export default async function Home() {
     elastic: await new ElasticGenerator().generate(),
     gacha: { items: [] },
     uuid: await new UuidGenerator().generate(),
-    wiki: await new WikiGenerator().generate(),
   };
   return (
     <>

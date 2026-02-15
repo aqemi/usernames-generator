@@ -23,7 +23,7 @@ export interface GeneratorPanelProps {
   elastic: ElasticGeneratorResult;
   gacha: GachaGeneratorResult;
   uuid: UuidGeneratorResult;
-  wiki: WikiGeneratorResult;
+  wiki?: WikiGeneratorResult;
   className?: string;
 }
 
@@ -110,7 +110,7 @@ export const GeneratorPanel = React.memo(function GeneratorPanel(props: Generato
             </Generator>
             <Separator />
             <Generator title="Genshin" onRegenerate={regenerateWiki}>
-              <Copyable disabled type="text" value={state.wiki.title} />
+              {state.wiki && <Copyable disabled type="text" value={state.wiki.title} /> }
             </Generator>
             <Separator />
             <Generator title="UUID" onRegenerate={regenerateUuid}>
