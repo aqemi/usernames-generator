@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "deny": ["Read(.env)", "Read(.env.*)"],
+    "allow": [
+      "Bash(pnpm install)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm build)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "mcp__next-devtools__nextjs_docs",
+      "mcp__shadcn__search_items_in_registries",
+      "mcp__shadcn__view_items_in_registries",
+      "mcp__shadcn__list_items_in_registries"
+    ]
+  }
+}
