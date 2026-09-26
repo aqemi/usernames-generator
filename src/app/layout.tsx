@@ -6,7 +6,7 @@ import { Sono } from 'next/font/google';
 
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import logo from './logo.png';
+import logo from './logo.webp';
 import './globals.css';
 
 const font = Sono({ weight: ['400', '700', '800'], subsets: ['latin'] });

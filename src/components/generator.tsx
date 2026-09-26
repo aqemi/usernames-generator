@@ -1,8 +1,9 @@
 import { VT323 } from 'next/font/google';
-import { useCallback, useState, type ReactNode } from 'react';
+import { Children, useCallback, useState, type ReactNode } from 'react';
 import { RefreshCcw, Sparkles } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Spinner } from './ui/spinner';
 
 interface GeneratorProps {
@@ -10,6 +11,10 @@ interface GeneratorProps {
   onRegenerate: () => void | Promise<void>;
   children?: ReactNode;
 }
+
+// Widths cycle so a row of placeholders reads like values of differing length
+// rather than a set of identical bars.
+const SKELETON_WIDTHS = ['w-32', 'w-40', 'w-28'];
 
 const font = VT323({ weight: '400', subsets: ['latin'] });
 
@@ -31,21 +36,22 @@ export function Generator({ title, children, onRegenerate }: GeneratorProps) {
       <Button
         variant="default"
         onClick={onRegenerateWrapper}
-        size="icon"
+        size="icon-lg"
         className="shrink-0 md:ml-auto md:order-last"
         aria-label="Regenerate"
         disabled={isGenerating}
       >
         {!isGenerating ? <RefreshCcw className="h-4 w-4" /> : <Spinner />}
       </Button>
-      {children ||
-        (!isGenerating ? (
-          <Button variant="outline" onClick={onRegenerateWrapper} aria-label="Click to generate">
-            Click to generate <Sparkles className="h-4 w-4" />
-          </Button>
-        ) : (
-          <div className="text-sm">Generating...</div>
-        ))}
+      {isGenerating
+        ? Array.from({ length: Math.max(Children.count(children), 1) }, (_, index) => (
+            <Skeleton key={index} className={`h-9 ${SKELETON_WIDTHS[index % SKELETON_WIDTHS.length]}`} />
+          ))
+        : children || (
+            <Button variant="outline" size="lg" onClick={onRegenerateWrapper} aria-label="Click to generate">
+              Click to generate <Sparkles className="h-4 w-4" />
+            </Button>
+          )}
     </section>
   );
 }

@@ -36,7 +36,7 @@ export const SingleTooltipProvider = ({ children, ...props }: React.PropsWithChi
       clearTimeout(timeout.current);
     }
     setOpenTooltipId(id);
-    timeout.current = setTimeout(() => setOpenTooltipId(null), 2000);
+    timeout.current = setTimeout(() => setOpenTooltipId(null), 3000);
   }, []);
 
   return (

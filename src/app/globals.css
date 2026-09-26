@@ -1,12 +1,13 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-/* @import "shadcn/tailwind.css"; */
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: Outfit, sans-serif;
-  --font-mono: Fira Code, monospace;
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-sans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -39,14 +40,14 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --font-serif: var(--font-serif);
   --radius: 0.5rem;
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
   --tracking-tight: calc(var(--tracking-normal) - 0.025em);
@@ -70,6 +71,16 @@
   --shadow-blur: var(--shadow-blur);
   --shadow-opacity: var(--shadow-opacity);
   --color-shadow-color: var(--shadow-color);
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
 }
 
 @theme {
@@ -78,38 +89,40 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.9816 0.0017 247.839);
-  --foreground: oklch(0.1649 0.0352 281.8285);
-  --muted: oklch(0.9595 0.02 286.0164);
-  --muted-foreground: oklch(0.1649 0.0352 281.8285);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.1649 0.0352 281.8285);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.1649 0.0352 281.8285);
-  --border: oklch(0.9205 0.0086 225.0878);
-  --input: oklch(0.9205 0.0086 225.0878);
-  --primary: oklch(0.6726 0.2904 341.4084);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.9595 0.02 286.0164);
-  --secondary-foreground: oklch(0.1649 0.0352 281.8285);
-  --accent: oklch(0.8903 0.1739 171.269);
-  --accent-foreground: oklch(0.1649 0.0352 281.8285);
-  --destructive: oklch(0.6535 0.2348 34.037);
+  --background: #f0f0f5;
+  --foreground: #1e1b2e;
+  --muted: #e5e5ec;
+  --muted-foreground: rgba(30, 27, 46, 0.55);
+  --popover: #ffffff;
+  --popover-foreground: #1e1b2e;
+  --card: rgba(255, 255, 255, 0.85);
+  --card-foreground: #1e1b2e;
+  --border: rgba(147, 51, 234, 0.18);
+  --input: rgba(147, 51, 234, 0.18);
+  --primary: #9333ea;
+  --primary-foreground: #ffffff;
+  --secondary: #e9d5ff;
+  --secondary-foreground: #1e1b2e;
+  --accent: rgba(8, 145, 178, 0.12);
+  --accent-foreground: #0891b2;
+  --destructive: #dc2626;
   --destructive-foreground: oklch(1 0 0);
-  --ring: oklch(0.6726 0.2904 341.4084);
-  --chart-1: oklch(0.6726 0.2904 341.4084);
-  --chart-2: oklch(0.5488 0.2944 299.0954);
-  --chart-3: oklch(0.8442 0.1457 209.2851);
-  --chart-4: oklch(0.8903 0.1739 171.269);
-  --chart-5: oklch(0.9168 0.1915 101.407);
-  --sidebar: oklch(0.9595 0.02 286.0164);
-  --sidebar-foreground: oklch(0.1649 0.0352 281.8285);
-  --sidebar-primary: oklch(0.6726 0.2904 341.4084);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.8903 0.1739 171.269);
-  --sidebar-accent-foreground: oklch(0.1649 0.0352 281.8285);
-  --sidebar-border: oklch(0.9205 0.0086 225.0878);
-  --sidebar-ring: oklch(0.6726 0.2904 341.4084);
+  --ring: #9333ea;
+  --chart-1: #9333ea;
+  --chart-2: #0891b2;
+  --chart-3: #15803d;
+  --chart-4: #6b21a8;
+  --chart-5: #57534e;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1e1b2e;
+  --sidebar-primary: #9333ea;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(8, 145, 178, 0.12);
+  --sidebar-accent-foreground: #0891b2;
+  --sidebar-border: rgba(147, 51, 234, 0.18);
+  --sidebar-ring: #9333ea;
+  --cyan: #0891b2;
+  --neon-green: #15803d;
   --font-sans: Outfit, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-mono: Fira Code, monospace;
@@ -135,63 +148,63 @@
 .dark {
   --radius: 0.5rem;
 
-  /* Deep, cool background with slight blue tint for icy-metal feel */
-  --background: oklch(0.1649 0.0352 281.8285); /* near-black navy */
-  --foreground: oklch(0.9513 0.0074 260.7315); /* pale icy text */
+  /* Near-black background for neon-on-dark contrast */
+  --background: #0a0a12;
+  --foreground: #e0e0e0;
 
   /* Muted surfaces */
-  --muted: oklch(0.2123 0.0522 280.9917);
-  --muted-foreground: oklch(0.6245 0.05 278.1046);
+  --muted: #16161f;
+  --muted-foreground: rgba(255, 255, 255, 0.5);
 
   /* Popovers / cards */
-  --popover: oklch(0.2542 0.0611 281.1423);
-  --popover-foreground: oklch(0.9513 0.0074 260.7315);
-  --card: oklch(0.2542 0.0611 281.1423);
-  --card-foreground: oklch(0.9513 0.0074 260.7315);
+  --popover: #0f0f1e;
+  --popover-foreground: #e0e0e0;
+  --card: rgba(15, 15, 30, 0.85);
+  --card-foreground: #e0e0e0;
 
-  /* Borders / inputs: cool desaturated separators */
-  --border: oklch(0.3279 0.0832 280.789);
-  --input: oklch(0.3279 0.0832 280.789);
+  /* Borders / inputs: translucent violet separators */
+  --border: rgba(180, 77, 255, 0.25);
+  --input: rgba(180, 77, 255, 0.25);
 
-  /* Primary: icy blue glow */
-  --primary: oklch(0.6726 0.2904 341.4084);
-  --primary-foreground: oklch(1 0 0);
+  /* Primary: neon violet */
+  --primary: #b44dff;
+  --primary-foreground: #0a0a12;
 
-  /* Secondary: cool lavender accent */
-  --secondary: oklch(0.2542 0.0611 281.1423);
-  --secondary-foreground: oklch(0.9513 0.0074 260.7315);
+  /* Secondary: deep indigo surface */
+  --secondary: #1a1a2e;
+  --secondary-foreground: #e0e0e0;
 
-  /* Accent / metallic sheen */
-  --accent: oklch(0.8903 0.1739 171.269);
-  --accent-foreground: oklch(0.1649 0.0352 281.8285);
+  /* Accent: cyan glow */
+  --accent: rgba(0, 240, 255, 0.15);
+  --accent-foreground: #00f0ff;
 
   /* Destructive (kept readable on dark) */
-  --destructive: oklch(0.6535 0.2348 34.037);
+  --destructive: #ff4d4d;
   --destructive-foreground: oklch(1 0 0);
 
-  /* Ring / focus: subtle icy glow */
-  --ring: oklch(0.6726 0.2904 341.4084);
+  /* Ring / focus: violet glow */
+  --ring: #b44dff;
 
   /* Charts tuned to palette */
-  --chart-1: oklch(0.6726 0.2904 341.4084);
-  --chart-2: oklch(0.5488 0.2944 299.0954);
-  --chart-3: oklch(0.8442 0.1457 209.2851);
-  --chart-4: oklch(0.8903 0.1739 171.269);
-  --chart-5: oklch(0.9168 0.1915 101.407);
+  --chart-1: #b44dff;
+  --chart-2: #00f0ff;
+  --chart-3: #39ff14;
+  --chart-4: #7b2fbe;
+  --chart-5: #c0c0c0;
 
   /* Sidebar / panel variants for strong contrast */
-  --sidebar: oklch(0.1649 0.0352 281.8285);
-  --sidebar-foreground: oklch(0.9513 0.0074 260.7315);
-  --sidebar-primary: oklch(0.6726 0.2904 341.4084);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.8903 0.1739 171.269);
-  --sidebar-accent-foreground: oklch(0.1649 0.0352 281.8285);
-  --sidebar-border: oklch(0.3279 0.0832 280.789);
-  --sidebar-ring: oklch(0.6726 0.2904 341.4084);
+  --sidebar: #0f0f1e;
+  --sidebar-foreground: #e0e0e0;
+  --sidebar-primary: #b44dff;
+  --sidebar-primary-foreground: #0a0a12;
+  --sidebar-accent: rgba(0, 240, 255, 0.15);
+  --sidebar-accent-foreground: #00f0ff;
+  --sidebar-border: rgba(180, 77, 255, 0.25);
+  --sidebar-ring: #b44dff;
 
-  /* Helpers for metallic sheen in dark mode */
-  --metallic-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  --cool-glow: 0 8px 24px rgba(79, 215, 255, 0.06);
+  /* Raw hues for the HUD chrome (glow, matrix rain, glitch layers) */
+  --cyan: #00f0ff;
+  --neon-green: #39ff14;
   --font-sans: Outfit, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-mono: Fira Code, monospace;
@@ -221,11 +234,247 @@
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
   }
+  html {
+    @apply font-sans;
+  }
 }
 
 @layer base {
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
+  }
+}
+
+/* ── Hacker HUD backdrop: grid, scanlines, matrix canvas ───────────────── */
+.hud-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in oklch, var(--primary) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklch, var(--primary) 6%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark .hud-grid {
+  background-image:
+    linear-gradient(color-mix(in oklch, var(--primary) 3%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklch, var(--primary) 3%, transparent) 1px, transparent 1px);
+}
+
+.hud-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    color-mix(in oklch, var(--primary) 2%, transparent) 0px,
+    color-mix(in oklch, var(--primary) 2%, transparent) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: hud-scanline-move 8s linear infinite;
+}
+
+.dark .hud-scanlines {
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.08) 0px, rgba(0, 0, 0, 0.08) 1px, transparent 1px, transparent 3px);
+}
+@keyframes hud-scanline-move {
+  to {
+    transform: translateY(12px);
+  }
+}
+
+.hud-matrix {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.hud-particles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.hud-particle {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  opacity: 0;
+  animation: hud-float-up linear infinite;
+}
+@keyframes hud-float-up {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ── Glitch title ────────────────────────────────────────────────────── */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch-layer {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+}
+.glitch-layer.cyan {
+  color: var(--cyan);
+  clip-path: inset(0 0 60% 0);
+  animation: glitch-1 3.2s infinite linear alternate-reverse;
+}
+.glitch-layer.primary {
+  color: var(--primary);
+  clip-path: inset(40% 0 0 0);
+  animation: glitch-2 2.2s infinite linear alternate-reverse;
+}
+@keyframes glitch-1 {
+  0%,
+  88%,
+  92%,
+  96%,
+  100% {
+    transform: translate(0);
+  }
+  89% {
+    transform: translate(-3px, -2px);
+  }
+  91% {
+    transform: translate(3px, 2px);
+  }
+  93% {
+    transform: translate(-2px, 1px);
+  }
+  95% {
+    transform: translate(2px, -1px);
+  }
+}
+@keyframes glitch-2 {
+  0%,
+  85%,
+  90%,
+  94%,
+  98%,
+  100% {
+    transform: translate(0);
+  }
+  86% {
+    transform: translate(3px, 1px);
+  }
+  88% {
+    transform: translate(-3px, -1px);
+  }
+  92% {
+    transform: translate(2px, -2px);
+  }
+  96% {
+    transform: translate(-2px, 2px);
+  }
+}
+
+/* ── Terminal-style status line ─────────────────────────────────────── */
+.hud-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: hud-dot-blink 1.5s ease-in-out infinite;
+}
+@keyframes hud-dot-blink {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ── Mascot sticker: dual-glow drop-shadow, float + tilt ───────────────── */
+.sw-sticker {
+  filter: drop-shadow(0 0 15px color-mix(in oklch, var(--primary) 50%, transparent))
+    drop-shadow(0 0 30px color-mix(in oklch, var(--cyan) 20%, transparent));
+  animation: sticker-float 4s ease-in-out infinite;
+}
+@keyframes sticker-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+}
+
+/* ── Status-card sliding gradient border ────────────────────────────── */
+.hud-panel {
+  position: relative;
+  overflow: hidden;
+}
+.hud-panel::before,
+.hud-panel::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 2px;
+  z-index: 1;
+}
+.hud-panel::before {
+  top: 0;
+  left: -100%;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--primary), transparent);
+  animation: hud-border-slide 4s linear infinite;
+}
+.hud-panel::after {
+  bottom: 0;
+  right: -100%;
+  background: linear-gradient(90deg, transparent, var(--primary), var(--cyan), transparent);
+  animation: hud-border-slide-reverse 4s linear infinite;
+}
+@keyframes hud-border-slide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+@keyframes hud-border-slide-reverse {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-scanlines,
+  .glitch-layer.cyan,
+  .glitch-layer.primary,
+  .hud-dot,
+  .sw-sticker,
+  .hud-panel::before,
+  .hud-panel::after,
+  .hud-particle {
+    animation: none !important;
+  }
+  .hud-particles {
+    display: none;
   }
 }

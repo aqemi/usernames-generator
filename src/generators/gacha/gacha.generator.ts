@@ -14,7 +14,7 @@ export class GachaGenerator implements Generator<GachaGeneratorResult> {
       responseFormat: { type: 'json_object' },
     });
 
-    const content = choices?.[0].message.content;
+    const content = choices?.[0].message?.content;
     if (typeof content === 'string') {
       const parsed = this.parseAiResponse(content);
       return {

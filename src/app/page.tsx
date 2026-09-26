@@ -1,3 +1,4 @@
+import { HudBackdrop } from '@/components/hud-backdrop';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { Button } from '@/components/ui/button';
 import { GithubIcon } from '@/components/ui/github-icon';
@@ -10,7 +11,7 @@ import { VT323 } from 'next/font/google';
 import Image from 'next/image';
 import { GeneratorPanel, GeneratorPanelProps } from './generator-panel';
 
-import logo from './logo.png';
+import logo from './logo.webp';
 
 const font = VT323({ weight: '400', subsets: ['latin'] });
 
@@ -24,29 +25,45 @@ export default async function Home() {
   };
   return (
     <>
-      <header className="grow basis-1/5 flex items-start justify-end space-x-4">
-        <Button variant="ghost" size="icon" aria-labelledby="ghlink">
-          <a href="https://github.com/aqemi/usernames-generator" target="_blank" aria-label="Github" id="ghlink">
-            <GithubIcon />
-          </a>
-        </Button>
-        <ThemeSwitch />
+      <HudBackdrop />
+      <header className="relative z-10 grow basis-1/5 flex items-start justify-end space-x-4">
+          <Button variant="ghost" size="icon" aria-labelledby="ghlink">
+            <a href="https://github.com/aqemi/usernames-generator" target="_blank" aria-label="Github" id="ghlink">
+              <GithubIcon />
+            </a>
+          </Button>
+          <ThemeSwitch />
       </header>
-      <main className="grow basis-3/5 flex flex-col items-center">
-        <section className="grow basis-0 content-end">
-          <div className="flex items-center gap-3 xs:gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8 text-4xl xs:text-5xl sm:text-6xl md:text-7xl">
-            <Image src={logo} alt="chibi" className="h-[1.2em] w-auto" />
+      <main className="relative z-10 grow basis-3/5 flex flex-col items-center gap-2">
+        <section className="grow basis-1/5 flex flex-col items-center justify-center gap-2">
+          <div className="flex items-center gap-3 xs:gap-4 sm:gap-5 md:gap-6 text-4xl xs:text-5xl sm:text-6xl md:text-7xl">
+            <Image src={logo} alt="" loading="eager" className="sw-sticker h-[1.1em] w-auto shrink-0" />
             <h1
-              className={`${font.className} scroll-m-20 font-extrabold tracking-tight whitespace-nowrap uppercase flex items-center relative top-0.5 xs:top-1 md:top-1.5`}
+              className={`glitch ${font.className} scroll-m-20 font-extrabold tracking-tight whitespace-nowrap uppercase`}
             >
               usernames generator
+              <span className="glitch-layer cyan" aria-hidden="true">
+                usernames generator
+              </span>
+              <span className="glitch-layer primary" aria-hidden="true">
+                usernames generator
+              </span>
             </h1>
           </div>
+          <p className="flex items-center gap-2 text-xs tracking-[.32em] uppercase text-(--cyan)">
+            <span className="hud-dot" />
+            銀の狼 &middot; Silver Wolf Protocol
+          </p>
         </section>
-        <GeneratorPanel {...generatedValues} className="w-full md:w-175" />
-        <section className="grow basis-0"></section>
+        <div className="relative w-full md:w-175">
+          <GeneratorPanel
+            {...generatedValues}
+            className="hud-panel w-full ring-primary/25 shadow-[0_0_40px_-12px_color-mix(in_oklch,var(--primary)_50%,transparent)]"
+          />
+        </div>
+        <section className="grow basis-1/5"></section>
       </main>
-      <footer className="grow basis-1/5"></footer>
+      <footer className="relative z-10 grow basis-1/5"></footer>
     </>
   );
 }
